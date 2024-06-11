@@ -58,6 +58,7 @@
     //completed change method   //used to tell the user how much money they get back from the kiosk
     public void ChangeC(double _change) {
         bool EndChange = false;
+        bool Cancel = false;
         if (_change > 0) {
             _change = Math.Round(_change, 2);
             Line();
@@ -68,6 +69,7 @@
         }//end if 
             double _fulTotal = Valt();
         while (_change > 0 && EndChange == false) {
+            if (Cancel == true) { _change = 0;  }
             if (_fulTotal >= _change) {
                 if (_change >= 100 && _100 > 0) {
                     _change -= 100; _100--;  //$100 
@@ -110,46 +112,50 @@
                     Console.Write("    Dispensed - ");
                     ColorText("$0.01\n", ConsoleColor.Green);
                 }//end if else tree
-                else if (_fulTotal < _change) { return; }
-                else { return; }
-                if (_change == 0) { EndChange = true; }//end if change = 0
+                else if (_fulTotal < _change) { EndChange = true; }//end esle if
+                else {
+                    if (_change == 0) { ThanksForPaying(); EndChange = true; } else { return; }
+                }//end esle
             }//end if
-           if (_change == 0) { ThanksForPaying(); break; }
+           else if (_change == 0) { ThanksForPaying(); EndChange = true; }
+           else if (_fulTotal < _change) { Cancel = CancelOrCard(_fulTotal, _change);  }
+           else { EndChange = true; }
         }//end while
     }//end Function Payment
 
     //completed cash method
     public double Cash(double _total, double _change) {
         //varables
-        double change = 0;
+        //double change = 0;
         double payment = 0;
         double remaning = 0;
+        bool usingCard = false;
         Line();
         //insert cash 
-        for (int i = 1; i > 0; i++) {
-            Console.Write($"     Payment {i}: ");
-            payment = PromptDoulbeTry("$");
-            _Paying = payment;
-            if (payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5 || payment == 2 || payment == 1 || payment == 0.50 || payment == 0.25 || payment == 0.10 || payment == 0.05 || payment == 0.01) {
-                if (payment == 0 && remaning > 0) { _total = remaning; i = -1; }//end if
-                else if (payment < _total) {
-                    remaning = _total - payment;
-                    Line(); Console.Write($"     Remaning : ");
-                    ColorText($"{remaning:C}", ConsoleColor.Magenta); Line2();
-                    _total = remaning;
-                    AskIfCard(_total, _change);
-                    break;
-                }//end else if 
-                else {
-                    change = payment - _total; 
-                    if (change == 0) { ThanksForPaying(); break; }//end if total = zero
-                    i = -1;
-                }//end else
-            }//end if payment
-            else { Invalid(); }
-        }//end For
-            ChangeC(change);
-        return change;
+            for (int i = 1; i > 0; i++) {
+                if (usingCard) { break; }
+
+                Console.Write($"     Payment {i}: ");
+                payment = PromptDoulbeTry("$");
+                _Paying = payment;
+                if (payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5 || payment == 2 || payment == 1 || payment == 0.50 || payment == 0.25 || payment == 0.10 || payment == 0.05 || payment == 0.01) {
+                    if (payment == 0 && remaning > 0) { _total = remaning; i = -1; }//end if
+                    else if (payment < _total) {
+                        remaning = _total - payment;
+                        Line(); Console.Write($"     Remaning : ");
+                        ColorText($"{remaning:C}", ConsoleColor.Magenta); Line2();
+                        _total = remaning;
+                        usingCard = AskIfCard(_total, _change);
+                    }//end else if 
+                    else {
+                        _change = payment - _total;
+                        i = -1;
+                    }//end else
+                }//end if payment
+                else { Invalid(); }
+            }//end For
+            ChangeC(_change);
+       return _change;
     }//end funiton Cash 
 
     //completed card method 
@@ -162,7 +168,9 @@
         int sum = 0;
         int a = 0;
         bool EndCard = false;
+        bool UsingCash = false;
         while (EndCard == false) {
+            if (UsingCash) { ThanksForPaying();  break; }
             //part of your card transation 
             Line(); ColorText("    16   **** **** **** **** \n    15   **** ****** *****", ConsoleColor.Magenta);
             Line2(); Digits = PromptIntTry("\t   16 or 15\n      Digits on card?: ");
@@ -207,9 +215,8 @@
                     if (result[1] == "declined") { //if card declined
                         Console.WriteLine($"\t    {result[1]}");
                         Line();
-                        AskIfCash(_total, _change);
-                        EndCard = true;
-                    }else { //else to make result to a double
+                        UsingCash = AskIfCash(_total, _change);
+                    } else { //else to make result to a double
                         double number = double.Parse(result[1]);
                         number = Math.Round(number, 2);
                         if (number == _total) {
@@ -225,13 +232,12 @@
                             _total = _total - number;
                             Console.Write($"      New Total - "); ColorText($"{_total:C}", ConsoleColor.Green);
                             Line2();
-                            AskIfCash(_total, _change);
-                            EndCard = true;
+                            UsingCash = AskIfCash(_total, _change);
                         }//end else if < total
-                        else { AskIfCash(_total, _change); EndCard = true; }//end else
+                        else { UsingCash = AskIfCash(_total, _change); }//end else
                     }//end else and if 
                 }//end if
-            } else { InvalidCard(); AskIfCash(_total,_change);   EndCard = true; }//end else 
+            } else { InvalidCard();  UsingCash = AskIfCash(_total, _change); }//end else 
         }//end while 
     }//end fucniton Card 
 
@@ -239,8 +245,8 @@
     static string[] MoneyRequest(string account_number, double amount) {
         Random rnd = new Random();
         //50% chance transaciton passes or fails
-        //bool pass = rnd.Next(100) < 50;
-        bool pass = false;  //to test if not working 
+        bool pass = rnd.Next(100) < 50;
+        //bool pass = false;  //to test if not working 
                             //50% chance that a faled transcation is declned
         bool declined = rnd.Next(100) < 50;
         //if tree
@@ -275,34 +281,63 @@
 
 
     //run everytime after you use card and it deline or not charged all to see if you want to change paymentmethod
-    public void AskIfCash(double _total, double _change) {
+    public bool AskIfCash(double _total, double _change) {
         bool UseCash = true;
         while (UseCash == true) {
             string YesorNo = PromptChar("Change payment Method (Y/N): ");
             if (YesorNo == "Y") {
                 Cash(_total, _change);
                 UseCash = false;
+                return true;
             } else if (YesorNo == "N") {
-               UseCash = false; 
+               UseCash = false;
+                return false;
             } else { Invalid(); }//end if else tree
         }//end while
+        return false;
     }//end method 
 
 
     //run everytime after you insert cash to see if you want to change paymentmethod
-    public void AskIfCard(double _total, double _change) {
+    public bool AskIfCard(double _total, double _change) {
         bool UseCard = true;
         while (UseCard == true) {
             string YesorNo = PromptChar("Change payment Method (Y/N): ");
             if (YesorNo == "Y") {
                 Card(_total, _change);
                 UseCard = false;
+                return true;
             } else if (YesorNo == "N") {
                 Line();
                 UseCard = false; 
+                return false;
             } else { Invalid(); }//end if else tree
         }//end while
+        return false;
     }//end method
+
+
+
+    public bool CancelOrCard(double _total, double _change) {
+        bool UseCard = true;
+        Console.WriteLine("  Kiosk does not have enough\n  money to pay you back");
+        Line();
+        Console.WriteLine("  You can Cancel Transaction\n\tor Try a card");
+        Line();
+        while (UseCard == true) {
+            string CancelorCard = PromptChar("  Cancel (X) or Card (C) : ");
+            if (CancelorCard == "C") {
+                Card(_total, _change);
+                UseCard = false;
+                return true;
+            } else if (CancelorCard == "X") {
+                UseCard = false;
+                return true;
+            } else { Invalid(); }//end if else tree
+        }//end while
+        return false;
+    }//end method
+
 
 
     //run after card method if the card is valid and charged all ask if they would like cash back
@@ -321,7 +356,7 @@
                 CashBack = false;
             } else if (YesorNo == "N") {
                 ThanksForPaying();
-                break;
+                CashBack = false;
             } else { Invalid(); }//end if else tree
         }//end while
     }//end method

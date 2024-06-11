@@ -9,9 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8F5254A6-10EF-4D48-A8A6-3111FB9E9A51}|Keoski Project.csproj|c:\\users\\mca-9\\documents\\github\\keoski project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8F5254A6-10EF-4D48-A8A6-3111FB9E9A51}|Keoski Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\MCA-9\\Documents\\GitHub\\FileLog\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,21 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DefinedDatabase.cs",
-              "DocumentMoniker": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\DefinedDatabase.cs",
-              "RelativeDocumentMoniker": "DefinedDatabase.cs",
-              "ToolTip": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\DefinedDatabase.cs",
-              "RelativeToolTip": "DefinedDatabase.cs",
-              "ViewState": "AQIAAHYAAAAAAAD4tionwHsAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-17T15:21:42.729Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -44,22 +28,22 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAABUAAAAAAPDcT0gkwB4AAAAmAAAA",
+              "ViewState": "AQIAADYAAADAjDHGz9wgwBsAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-16T18:21:19.525Z",
+              "WhenOpened": "2024-06-10T17:12:37.963Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\MCA-9\\Documents\\GitHub\\FileLog\\Program.cs",
-              "RelativeDocumentMoniker": "..\\FileLog\\Program.cs",
-              "ToolTip": "C:\\Users\\MCA-9\\Documents\\GitHub\\FileLog\\Program.cs",
-              "RelativeToolTip": "..\\FileLog\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "DefinedDatabase.cs",
+              "DocumentMoniker": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\DefinedDatabase.cs",
+              "RelativeDocumentMoniker": "DefinedDatabase.cs",
+              "ToolTip": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\DefinedDatabase.cs",
+              "RelativeToolTip": "DefinedDatabase.cs",
+              "ViewState": "AQIAAHgAAACAAxZR3kMuwJoAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T14:59:49.04Z",
+              "WhenOpened": "2024-06-10T17:12:33.259Z",
               "EditorCaption": ""
             }
           ]

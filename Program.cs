@@ -21,7 +21,7 @@ namespace Keoski_Project {
             double value = 0;
             bool CashorCard = true;
             List<double> list = new List<double>();
-
+            Kiosk.Line2();
                 for (int i = 1; i > 0; i++) { 
                     //ask the user how much there item is
                     Console.Write($"\tItem {i}: "); value = PromptDoulbeTry("$");
@@ -35,7 +35,6 @@ namespace Keoski_Project {
                             if (CC == "cash") { Kiosk.Cash(total, Kiosk.ChangeGivin); CashorCard = false; }//end if 
                             else if (CC == "card") { Kiosk.Card(total, Kiosk.ChangeGivin); CashorCard = false; }//end else if
                             else { Kiosk.Invalid() ;}//end else
-                         i = -1;
                         }//end while
                         i = -1;
                     }//end if value = 0
