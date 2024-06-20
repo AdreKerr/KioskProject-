@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\Keoski Project.csproj",
+      "projectUniqueName": "C:\\Users\\MCA-9\\Documents\\GitHub\\Kiosk Project\\Keoski Project.csproj",
       "projectName": "Keoski Project",
-      "projectPath": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\Keoski Project.csproj",
+      "projectPath": "C:\\Users\\MCA-9\\Documents\\GitHub\\Kiosk Project\\Keoski Project.csproj",
       "packagesPath": "C:\\Users\\MCA-9\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MCA-9\\Documents\\GitHub\\Keoski Project\\obj\\",
+      "outputPath": "C:\\Users\\MCA-9\\Documents\\GitHub\\Kiosk Project\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MCA-9\\AppData\\Roaming\\NuGet\\NuGet.Config",

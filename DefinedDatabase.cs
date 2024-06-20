@@ -59,17 +59,17 @@
     public void ChangeC(double _change) {
         bool EndChange = false;
         bool Cancel = false;
-        if (_change > 0) {
-            _change = Math.Round(_change, 2);
-            Line();
-            Console.Write($"       Change - ");
-            ColorText($"{_change:C}", ConsoleColor.DarkGreen);
-                _ChangeGivin = _change;
-            Line2();
-        }//end if 
-            double _fulTotal = Valt();
+        double _fulTotal = Valt();
+            if (_change > 0) {
+                _change = Math.Round(_change, 2);
+                Line();
+                Console.Write($"       Change - ");
+                ColorText($"{_change:C}", ConsoleColor.DarkGreen);
+                    _ChangeGivin = _change;
+            }//end if 
+                Line2();
         while (_change > 0 && EndChange == false) {
-            if (Cancel == true) { _change = 0;  }
+            if (Cancel == true) { break; }
             if (_fulTotal >= _change) {
                 if (_change >= 100 && _100 > 0) {
                     _change -= 100; _100--;  //$100 
@@ -112,14 +112,10 @@
                     Console.Write("    Dispensed - ");
                     ColorText("$0.01\n", ConsoleColor.Green);
                 }//end if else tree
-                else if (_fulTotal < _change) { EndChange = true; }//end esle if
-                else {
-                    if (_change == 0) { ThanksForPaying(); EndChange = true; } else { return; }
-                }//end esle
+                else { Cancel = CancelOrCard(_fulTotal, _change); }//end esle
             }//end if
            else if (_change == 0) { ThanksForPaying(); EndChange = true; }
-           else if (_fulTotal < _change) { Cancel = CancelOrCard(_fulTotal, _change);  }
-           else { EndChange = true; }
+           else { Cancel = CancelOrCard(_fulTotal, _change); }
         }//end while
     }//end Function Payment
 
@@ -133,8 +129,7 @@
         Line();
         //insert cash 
             for (int i = 1; i > 0; i++) {
-                if (usingCard) { break; }
-
+                if (usingCard) { i = -1; }
                 Console.Write($"     Payment {i}: ");
                 payment = PromptDoulbeTry("$");
                 _Paying = payment;
@@ -170,7 +165,7 @@
         bool EndCard = false;
         bool UsingCash = false;
         while (EndCard == false) {
-            if (UsingCash) { ThanksForPaying();  break; }
+            if (UsingCash) { break; }
             //part of your card transation 
             Line(); ColorText("    16   **** **** **** **** \n    15   **** ****** *****", ConsoleColor.Magenta);
             Line2(); Digits = PromptIntTry("\t   16 or 15\n      Digits on card?: ");
@@ -320,6 +315,7 @@
 
     public bool CancelOrCard(double _total, double _change) {
         bool UseCard = true;
+        Line();
         Console.WriteLine("  Kiosk does not have enough\n  money to pay you back");
         Line();
         Console.WriteLine("  You can Cancel Transaction\n\tor Try a card");
